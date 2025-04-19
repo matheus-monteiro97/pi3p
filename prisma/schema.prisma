@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  PERITO
+  ASSISTENTE
+}
+
+enum Status {
+  ATIVADO
+  DESATIVADO
+}
+
+enum StatusCase {
+  ARQUIVADO
+  ANDAMENTO
+  FINALIZADO
+}
+
+enum Classification {
+  CRIMINAL
+  ACIDENTE
+  IDENTIFICACAO
+}
+
+enum TypeEvidence {
+  TEXT 
+  IMAGE 
+}
+
+model User {
+  id       String   @id @default(uuid())
+  name     String
+  email    String   @unique
+  password    String
+  role     Role
+  status   Status   @default(ATIVADO)
+  casesManaged  Case[]        @relation("casesManaged")
+  evidencesCollected Evidence[] @relation("evidencesCollected")
+  reportsSigned  Report[]      @relation("reportsSigned")
+  resultsAnalyzed ComparisonResult[] @relation("resultsAnalyzed")
+}
+
+model Case {
+  id             String   @id @default(uuid())
+  title         String
+  classification  Classification
+  description      String
+  statusCase     StatusCase @default(ANDAMENTO)
+  status         Status   @default(ATIVADO)
+  dateOpened DateTime @default(now())
+  dataFinished DateTime?
+  manager        User     @relation("casesManaged", fields: [managerId], references: [id])
+  managerId      String
+  evidences     Evidence[]
+  reports     Report[]
+}
+
+model Evidence {
+  id           String   @id @default(uuid())
+  type         TypeEvidence
+  dateCollection   DateTime
+  status       Status   @default(ATIVADO)
+  collectedBy User     @relation("evidencesCollected", fields: [collectedById], references: [id])
+  collectedById String
+  case         Case     @relation(fields: [caseId], references: [id])
+  caseId       String
+  Comparison   ComparisonResult?
+  imageEvidence ImageEvidence?
+  textEvidence  TextEvidence?
+}  
+
+model ImageEvidence {
+  id         String   @id
+  imageURL  String
+  evidence   Evidence @relation(fields: [id], references: [id])
+}
+
+model TextEvidence {
+  id        String   @id
+  content  String
+  evidence  Evidence @relation(fields: [id], references: [id])
+}
+
+model ComparisonResult {
+  id            String   @id @default(uuid())
+  result    String
+  precision      Float
+  dateAnalysis   DateTime
+  status        Status   @default(ATIVADO)
+  analyzedBy  User     @relation("resultsAnalyzed", fields: [analyzedById], references: [id])
+  analyzedById String
+  evidence      Evidence @relation(fields: [evidenceId], references: [id])
+  evidenceId    String   @unique
+}
+
+model Report {
+  id               String   @id @default(uuid())
+  title           String
+  content         String
+  dateCreate      DateTime
+  status           Status   @default(ATIVADO)
+  responsibleExpert User     @relation("reportsSigned", fields: [responsibleExpertId], references: [id])
+  responsibleExpertId String
+  case             Case     @relation(fields: [caseId], references: [id])
+  caseId           String
+}

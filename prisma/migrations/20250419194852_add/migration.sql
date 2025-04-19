@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Case" ALTER COLUMN "dataAbertura" SET DEFAULT CURRENT_TIMESTAMP;
