@@ -58,6 +58,7 @@ import {
             description: dto.description,
             statusCase: dto.statusCase,
             dataFinished: isFinishing ? new Date() : caso.dataFinished,
+            status: dto.status
           },
         });
       } catch (error) {

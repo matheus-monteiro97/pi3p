@@ -1,4 +1,4 @@
-import { Classification, StatusCase } from '@prisma/client';
+import { Classification, Status, StatusCase } from '@prisma/client';
 import { IsString, IsOptional, IsEnum } from 'class-validator';
 
 export class CreateCaseDto {
@@ -18,4 +18,8 @@ export class CreateCaseDto {
     @IsOptional()
     @IsString()
     managerId?: string;
+
+    @IsOptional()
+    @IsEnum(Status)
+    status?: Status
 }

@@ -35,6 +35,11 @@ enum TypeEvidence {
   IMAGE 
 }
 
+enum Identified {
+  YES
+  NO
+}
+
 model User {
   id       String   @id @default(uuid())
   name     String
@@ -48,19 +53,31 @@ model User {
   resultsAnalyzed ComparisonResult[] @relation("resultsAnalyzed")
 }
 
+model Patient {
+  id             String   @id @default(uuid())
+  name           String
+  sex            String
+  birthDate      DateTime?
+  caseId         String
+  case           Case     @relation("casePatients", fields: [caseId], references: [id])
+  identified     Identified
+  status         Status @default(ATIVADO)
+}
+
 model Case {
   id             String   @id @default(uuid())
-  title         String
-  classification  Classification
-  description      String
+  title          String
+  classification Classification
+  description    String
   statusCase     StatusCase @default(ANDAMENTO)
-  status         Status   @default(ATIVADO)
-  dateOpened DateTime @default(now())
-  dataFinished DateTime?
-  manager        User     @relation("casesManaged", fields: [managerId], references: [id])
+  status         Status     @default(ATIVADO)
+  dateOpened     DateTime   @default(now())
+  dataFinished   DateTime?
+  manager        User       @relation("casesManaged", fields: [managerId], references: [id])
   managerId      String
-  evidences     Evidence[]
-  reports     Report[]
+  evidences      Evidence[]
+  reports        Report[]
+  patients       Patient[]  @relation("casePatients")
 }
 
 model Evidence {
@@ -105,7 +122,7 @@ model Report {
   id               String   @id @default(uuid())
   title           String
   content         String
-  dateCreate      DateTime
+  dateCreate      DateTime  @default(now())
   status           Status   @default(ATIVADO)
   responsibleExpert User     @relation("reportsSigned", fields: [responsibleExpertId], references: [id])
   responsibleExpertId String
