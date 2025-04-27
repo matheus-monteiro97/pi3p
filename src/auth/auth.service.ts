@@ -24,6 +24,8 @@ import {
             id: true,
             email: true,
             password: true,
+            name: true,
+            role: true
           },
         });
   
@@ -36,7 +38,7 @@ import {
           throw new UnauthorizedException('Usuário ou senha inválidos');
         }
   
-        const payload: JwtPayload = { email: user.email, userId: user.id };
+        const payload: JwtPayload = { email: user.email, userId: user.id, name: user.name, role: user.role };
   
         const accessToken = this.generateAccessToken(payload);
         const refreshToken = this.generateRefreshToken(payload);
