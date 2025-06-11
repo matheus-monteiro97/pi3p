@@ -54,14 +54,28 @@ model User {
 }
 
 model Patient {
-  id             String   @id @default(uuid())
-  name           String
-  sex            String
-  birthDate      DateTime?
-  caseId         String
-  case           Case     @relation("casePatients", fields: [caseId], references: [id])
-  identified     Identified
-  status         Status @default(ATIVADO)
+  id               String            @id @default(uuid())
+  name             String
+  age              Int?
+  sex              String
+  birthDate        DateTime?
+  caseId           String
+  document         String?
+  ethnicity        String?
+  anatomicalNotes  String
+  address          String?
+  identified       Identified
+  status           Status           @default(ATIVADO)
+  case             Case             @relation("casePatients", fields: [caseId], references: [id])
+  odontogramEntries OdontogramEntry[]
+}
+
+model OdontogramEntry {
+  id         String   @id @default(uuid())
+  toothNumber Int
+  note        String
+  patient     Patient @relation(fields: [patientId], references: [id])
+  patientId   String
 }
 
 model Case {

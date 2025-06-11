@@ -1,7 +1,15 @@
-import { IsString, IsEnum, IsUUID, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsEnum,
+  IsUUID,
+  IsOptional,
+  ValidateNested,
+  IsInt,
+} from 'class-validator';
 import { Identified, Status } from '@prisma/client';
 import { Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { OdontogramEntryDto } from './odontogramDto';
 
 export class CreatePatientDto {
   @ApiProperty({ example: 'João da Silva', description: 'Nome do paciente' })
@@ -37,6 +45,28 @@ export class CreatePatientDto {
   @IsEnum(Identified)
   identified: Identified;
 
+  @ApiProperty({
+    example: 'Corpo parcialmente carbonizado',
+    description: 'Observações anatômicas',
+  })
+  @IsString()
+  anatomicalNotes: string;
+
+  @ApiPropertyOptional({ example: 'Rua Exemplo, 123 - Bairro' })
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @ApiPropertyOptional({ example: '12345678900', description: 'Documento (opcional)' })
+  @IsOptional()
+  @IsString()
+  document?: string;
+
+  @ApiPropertyOptional({ example: 'Parda', description: 'Etnia (opcional)' })
+  @IsOptional()
+  @IsString()
+  ethnicity?: string;
+
   @ApiPropertyOptional({
     enum: Status,
     example: Status.ATIVADO,
@@ -45,4 +75,13 @@ export class CreatePatientDto {
   @IsOptional()
   @IsEnum(Status)
   status?: Status;
+
+  @ApiPropertyOptional({
+    type: [OdontogramEntryDto],
+    description: 'Lista de entradas odontológicas do paciente (dentes + observações)',
+  })
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => OdontogramEntryDto)
+  odontogramEntries?: OdontogramEntryDto[];
 }

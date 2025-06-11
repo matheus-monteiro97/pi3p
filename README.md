@@ -38,8 +38,8 @@ O PI-3P tem como objetivo modernizar e centralizar a gestão de laudos periciais
 Antes de começar, certifique-se de ter instalado:
 
 - Node.js (versão 16 ou superior)
-- npm ou yarn
-- Banco de dados (PostgreSQL, MySQL, SQLite, etc.)
+- npm 
+- Banco de dados (PostgreSQL, MySQL, SQLite)
 
 ## 🔧 Instalação
 
@@ -161,7 +161,3 @@ npm run deploy
 - **Projeto**: PI-3P
 - **Versão**: 0.0.1
 - **Swagger UI**: [http://localhost:3000/api#/](http://localhost:3000/api#/)
-
----
-
-Desenvolvido com usando [NestJS](https://nestjs.com/)
