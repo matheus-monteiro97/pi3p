@@ -1,99 +1,167 @@
+# PI-3P
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<p align="center">Projeto desenvolvido com <a href="http://nestjs.com" target="_blank">NestJS</a> - Framework Node.js progressivo para construção de aplicações server-side eficientes e escaláveis.</p>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Sobre o Projeto
 
-## Description
+O PI-3P tem como objetivo modernizar e centralizar a gestão de laudos periciais odontológicos, facilitando o registro, análise e identificação forense por meio de um sistema seguro, eficiente e acessível via Web e Mobile. Ela permitirá que peritos odontolegais, dentistas forenses e órgãos competentes possam cadastrar casos, anexar evidências, gerar laudos e cruzar informações para identificação de indivíduos.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### 🚀 Principais Funcionalidades
 
-## Project setup
+- **Gerenciamento de Pacientes**: CRUD completo para cadastro e gestão de pacientes
+- **Gestão de Casos**: Sistema para criação e acompanhamento de casos médicos
+- **Evidências Médicas**: Módulo para upload e gestão de evidências
+- **Relatórios**: Geração automática de relatórios médicos
+- **Comparação de Resultados**: Sistema para análise e comparação de dados médicos
+- **Autenticação JWT**: Sistema completo de autenticação e autorização
+- **Documentação API**: Interface Swagger UI para documentação interativa
+- **ORM Prisma**: Integração com banco de dados PostgreSQL
+- **Validação de Dados**: Validação robusta usando class-validator
+- **Testes Automatizados**: Suporte completo para testes unitários e e2e
 
+### 🛠️ Stack Tecnológica
+
+- **Framework**: NestJS
+- **Database ORM**: Prisma
+- **Autenticação**: JWT + Passport
+- **Documentação**: Swagger/OpenAPI
+- **Validação**: Class Validator + Class Transformer
+- **Testes**: Jest
+- **Linguagem**: TypeScript
+
+## 📦 Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado:
+
+- Node.js (versão 16 ou superior)
+- npm ou yarn
+- Banco de dados (PostgreSQL, MySQL, SQLite, etc.)
+
+## 🔧 Instalação
+
+1. **Clone o repositório**
 ```bash
-$ npm install
+git clone https://github.com/matheus-monteiro97/pi3p.git
+cd pi3p
 ```
 
-## Compile and run the project
-
+2. **Instale as dependências**
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
-
+3. **Configure as variáveis de ambiente**
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Crie um arquivo .env na raiz do projeto
+cp .env.example .env
 ```
 
-## Deployment
+Configure as seguintes variáveis no arquivo `.env`:
+```env
+# Database
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/pi3p_db"
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
+# JWT
+JWT_ACCESS_SECRET="seu-jwt-access-secret"
+JWT_REFRESH_SECRET="seu-jwt-refresh-secret"
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+4. **Configure o banco de dados**
+```bash
+# Gerar o cliente Prisma
+npx prisma generate
 
-## Resources
+# Executar as migrações
+npx prisma migrate dev
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## 🚀 Executando a Aplicação
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Desenvolvimento
+```bash
+# Modo desenvolvimento
+npm run start
 
-## Support
+# Modo desenvolvimento com watch
+npm run start:dev
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# Modo desenvolvimento com debug
+npm run start:debug
+```
 
-## Stay in touch
+### Produção
+```bash
+# Build da aplicação
+npm run build
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Executar em produção
+npm run start:prod
+```
 
-## License
+A aplicação estará disponível em `http://localhost:3000`
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 📚 Documentação da API
+
+Após iniciar a aplicação, você pode acessar a documentação interativa da API através do Swagger UI:
+
+```
+http://localhost:3000/api#/
+```
+
+## 🧪 Executando Testes
+
+```bash
+# Testes unitários
+npm run test
+
+# Testes em modo watch
+npm run test:watch
+
+# Testes e2e
+npm run test:e2e
+
+# Cobertura de testes
+npm run test:cov
+```
+
+## 🗄️ Banco de Dados
+
+Este projeto utiliza Prisma como ORM. Para trabalhar com o banco de dados:
+
+```bash
+# Visualizar o banco de dados
+npx prisma studio
+
+# Resetar o banco de dados
+npx prisma migrate reset
+
+# Aplicar mudanças no schema
+npx prisma db push
+```
+
+## 🚀 Deploy
+
+Para fazer deploy da aplicação:
+
+```bash
+# Build para produção
+npm run build
+
+# Deploy (inclui migrações do Prisma)
+npm run deploy
+```
+
+## 📞 Contato
+
+- **Repositório**: [https://github.com/matheus-monteiro97/pi3p](https://github.com/matheus-monteiro97/pi3p)
+- **Projeto**: PI-3P
+- **Versão**: 0.0.1
+- **Swagger UI**: [http://localhost:3000/api#/](http://localhost:3000/api#/)
+
+---
+
+Desenvolvido com usando [NestJS](https://nestjs.com/)
